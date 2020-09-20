@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/Screens/categories_screen.dart';
 import 'package:meals_app/Screens/category_meals_screen.dart';
-import 'package:meals_app/Screens/meal_detail_screen.dart';
+
+import 'Screens/meal_detail_screen.dart';
 
 //We need to change ds syntax from what we have been using to ds, to make our bottom sheet work
 void main() => runApp(MealsApp());
@@ -35,8 +36,19 @@ class MealsApp extends StatelessWidget {
         MealDetailScreen.routeName: (context) =>
             MealDetailScreen() //meal detail route
       },
-      onGenerateRoute: (settings) {
+
+/*      onGenerateRoute: (settings) {
         print(settings.arguments);
+        if(settings.name == "/meal-detail"){
+          return ...;
+        }
+        else if(setting.name == "/something-else"){
+          return ...;
+        }
+        return MaterialPageRoute(builder: (context) => CategoriesScreen());
+      },*/
+      //unknown route will fall back here if onGenerateRoute is not provided
+      onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => CategoriesScreen());
       },
     );
