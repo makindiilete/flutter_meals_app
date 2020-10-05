@@ -9,6 +9,7 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
 
   const MealItem(
       {@required this.id,
@@ -16,7 +17,8 @@ class MealItem extends StatelessWidget {
       @required this.imageUrl,
       @required this.duration,
       @required this.complexity,
-      @required this.affordability});
+      @required this.affordability,
+      this.removeItem});
 
   //Ds method is used to extract our Complexity enum values
   String complexityText() {
@@ -54,7 +56,13 @@ class MealItem extends StatelessWidget {
 
   //on tap of a meal, ds method is called which push d meal detail screen ontop of the meals screen and it also send the tapped meal id which will be used to fetch d meal details in d meal details screen
   void onSelectMeal(BuildContext context) {
-    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments: id);
+    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments: id)
+//    once the mealDetailScreen is popped, the then method is call which receive any argument passed from the meal detail screen
+        .then((result) {
+      if (result != null) {
+        removeItem(result);
+      }
+    });
   }
 
   @override

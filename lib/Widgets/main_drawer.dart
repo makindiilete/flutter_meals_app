@@ -31,13 +31,13 @@ class MainDrawer extends StatelessWidget {
             width: double.infinity,
             padding: EdgeInsets.all(20),
             alignment: Alignment.centerLeft,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
             child: Text(
               "Cooking Up!",
               style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 30,
-                  color: Theme.of(context).primaryColor),
+                  color: Theme.of(context).accentColor),
             ),
           ),
           SizedBox(
@@ -48,13 +48,17 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
               "Meals",
               Icons.restaurant,
-              () => Navigator.of(context).pushNamed(
-                  '/')), // ds function is passed to the builder method to navigate to the homepage
+              () =>
+//                  Navigator.of(context).pushNamed('/') //We replace pushNamed with pushReplacement so we can replace the existing route with the new one
+                  Navigator.of(context).pushReplacementNamed(
+                      '/')), // ds function is passed to the builder method to navigate to the homepage
           buildListTile(
               "Filters",
               Icons.settings,
-              () => Navigator.of(context).pushNamed(FiltersScreen
-                  .routeName)), // ds function is passed to the builder method to navigate to the filters screen
+              () =>
+//                  Navigator.of(context).pushNamed(FiltersScreen.routeName) //We replace pushNamed with pushReplacement so we can replace the existing route with the new one
+                  Navigator.of(context).pushReplacementNamed(FiltersScreen
+                      .routeName)), // ds function is passed to the builder method to navigate to the filters screen
         ],
       ),
     );

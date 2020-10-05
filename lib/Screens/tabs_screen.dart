@@ -2,21 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/Screens/categories_screen.dart';
 import 'package:meals_app/Screens/favorites_screen.dart';
 import 'package:meals_app/WIdgets/main_drawer.dart';
+import 'package:meals_app/models/meal.dart';
 
 class TabsScreen extends StatefulWidget {
+  // we define a field to bind to the fav meals received from main.dart
+  final List<Meal> favoriteMeals;
+
+  // ctor to receive d fav meals from main.dart file and store it inside d field defined above
+  TabsScreen({this.favoriteMeals});
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
   //here contains d list of all d pages we want to navigate to with the bottom tab and their title
-  final List<Map<String, Object>> _pages = [
-    {"page": CategoriesScreen(), "title": "Categories"},
-    {"page": FavoritesScreen(), "title": "Your Favorites"}
-  ];
+  List<Map<String, Object>> _pages;
 
   int _selectedPageIndex =
       0; //ds record the index of the currently selected page
+
+  // We initialize our pages inside the initState so we can have access to 'widget.'
+  @override
+  void initState() {
+    _pages = [
+      {"page": CategoriesScreen(), "title": "Categories"},
+//    we pass d favoriteMeals list to our favorite screen
+      {
+        "page": FavoritesScreen(
+          favoriteMeals: widget.favoriteMeals,
+        ),
+        "title": "Your Favorites"
+      }
+    ];
+    super.initState();
+  }
 
   //ds method help switch pages....
   void _selectPage(int index) {
@@ -33,7 +52,7 @@ class _TabsScreenState extends State<TabsScreen> {
             "title"]), //go to pages list -> index of _selectedPage and pick the title
       ),
       drawer: Drawer(
-        child: MainDrawer(),
+        child: MainDrawer(), //ds create
       ),
       body: _pages[_selectedPageIndex][
           "page"], // go to pages list -> index of d selectedPage and pick d page to render
