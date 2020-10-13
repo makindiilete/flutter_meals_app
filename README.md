@@ -1,6 +1,6 @@
 # meals_app
 
-A new Flutter project.
+Flutter Navigation
 
 ## Getting Started
 
